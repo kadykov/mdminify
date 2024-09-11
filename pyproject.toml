@@ -26,6 +26,15 @@ classifiers = [
 ]
 dependencies = []
 
+[project.optional-dependencies]
+test = [
+  "pytest",
+]
+dev = [
+  "mdminify[test]",
+  "pre-commit",
+]
+
 [project.urls]
 Documentation = "https://github.com/Aleksandr Kadykov/mdminify#readme"
 Issues = "https://github.com/Aleksandr Kadykov/mdminify/issues"
