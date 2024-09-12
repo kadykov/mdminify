@@ -70,28 +70,3 @@ exclude_lines = [
   "if __name__ == .__main__.:",
   "if TYPE_CHECKING:",
 ]
-
-[tool.tox]
-legacy_tox_ini = """
-[tox]
-envlist = py38, py39, py310, py311, py312, mypy
-
-[gh-actions]
-python =
-    3.8: py38
-    3.9: py39
-    3.10: py310
-    3.11: py311
-    3.12: py312, mypy
-
-[testenv]
-allowlist_externals = pytest
-extras =
-    test
-passenv = *
-setenv =
-    PYTHONPATH = {toxinidir}
-    PYTHONWARNINGS = ignore
-commands =
-    pytest --cov=mdminify --cov-branch --cov-report=xml --cov-report=term-missing tests
-"""
