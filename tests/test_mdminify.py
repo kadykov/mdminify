@@ -1,4 +1,5 @@
 from mdminify import mdminify
+import json
 
 
 # Test removing a single markdown link
@@ -72,3 +73,66 @@ def test_no_links():
     assert (
         restored_text == expected_restored_text
     ), "Text with no links should remain unchanged"
+
+
+# Test process_markdown_file
+def test_process_markdown_file(tmp_path):
+    # Input markdown text with links
+    markdown_content = "I am proficient in [Python](https://www.python.org/) and [JavaScript](https://www.javascript.com/)."
+
+    # Paths for input, output markdown, and output JSON
+    input_md = tmp_path / "input.md"
+    output_md = tmp_path / "output.md"
+    output_json = tmp_path / "links.json"
+
+    # Write the input markdown content to a file
+    input_md.write_text(markdown_content)
+
+    # Run the function to process the markdown file
+    mdminify.process_markdown_file(input_md, output_md, output_json)
+
+    # Verify that the plain markdown (without links) is written correctly
+    expected_plain_text = "I am proficient in Python and JavaScript."
+    assert (
+        output_md.read_text() == expected_plain_text
+    ), "Plain markdown output is incorrect"
+
+    # Verify that the links are saved correctly in the JSON file
+    expected_links = {
+        "Python": "https://www.python.org/",
+        "JavaScript": "https://www.javascript.com/",
+    }
+    with open(output_json) as f:
+        links_data = json.load(f)
+    assert links_data == expected_links, "Links JSON output is incorrect"
+
+
+# Test restore_links_from_json
+def test_restore_links_from_json(tmp_path):
+    # Input plain markdown text and corresponding JSON with links
+    plain_markdown_content = "I am proficient in Python and JavaScript."
+    links_data = {
+        "Python": "https://www.python.org/",
+        "JavaScript": "https://www.javascript.com/",
+    }
+
+    # Paths for plain markdown, JSON with links, and restored markdown
+    plain_md = tmp_path / "plain.md"
+    links_json = tmp_path / "links.json"
+    restored_md = tmp_path / "restored.md"
+
+    # Write the plain markdown content to a file
+    plain_md.write_text(plain_markdown_content)
+
+    # Write the links data to a JSON file
+    with open(links_json, "w") as f:
+        json.dump(links_data, f, indent=4)
+
+    # Run the function to restore the links
+    mdminify.restore_links_from_json(plain_md, links_json, restored_md)
+
+    # Verify that the restored markdown is correct
+    expected_restored_text = "I am proficient in [Python](https://www.python.org/) and [JavaScript](https://www.javascript.com/)."
+    assert (
+        restored_md.read_text() == expected_restored_text
+    ), "Restored markdown output is incorrect"
