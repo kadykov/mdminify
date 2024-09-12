@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
@@ -43,7 +43,7 @@ Issues = "https://github.com/Aleksandr Kadykov/mdminify/issues"
 Source = "https://github.com/Aleksandr Kadykov/mdminify"
 
 [tool.hatch.version]
-path = "src/mdminify/__about__.py"
+source = "vcs"
 
 [tool.hatch.envs.types]
 extra-dependencies = [
