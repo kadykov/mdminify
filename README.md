@@ -2,7 +2,8 @@
 
 [![PyPI - Version](https://img.shields.io/pypi/v/mdminify.svg)](https://pypi.org/project/mdminify)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/mdminify.svg)](https://pypi.org/project/mdminify)
-
+[![Build Status](https://github.com/kadykov/mdminify/actions/workflows/tests.yml/badge.svg)](https://github.com/kadykov/mdminify/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/kadykov/mdminify/branch/main/graphs/badge.svg)](https://codecov.io/github/kadykov/mdminify)
 -----
 
 A Python tool for minifying and restoring markdown files by stripping unnecessary elements and reformatting content
