@@ -4,7 +4,7 @@ import re
 # Function to remove hyperlinks from markdown text
 def remove_links(markdown_text):
     # Regex pattern to find [text](url)
-    link_pattern = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
+    link_pattern = re.compile(r"\[(.*?)\]\((.*?)\)")
     # Dictionary to store text-to-url mappings
     links = {}
 

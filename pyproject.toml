@@ -33,6 +33,7 @@ test = [
   "tox",
 ]
 dev = [
+  "ipykernel",
   "mdminify[test]",
   "pre-commit",
 ]

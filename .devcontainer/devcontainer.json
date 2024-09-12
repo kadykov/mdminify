@@ -18,7 +18,9 @@
 			"extensions": [
 				"charliermarsh.ruff",
 				"LittleFoxTeam.vscode-python-test-adapter",
-				"ms-python.mypy-type-checker"
+				"ms-python.mypy-type-checker",
+				"GitHub.vscode-github-actions",
+				"ms-toolsai.jupyter"
 			]
 		}
 	}
