@@ -12,7 +12,16 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "pip3 install -e .[dev] && pre-commit install"
+	"postCreateCommand": "pip3 install -e .[dev] && pre-commit install",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"charliermarsh.ruff",
+				"LittleFoxTeam.vscode-python-test-adapter",
+				"ms-python.mypy-type-checker"
+			]
+		}
+	}
 
 	// Configure tool-specific properties.
 	// "customizations": {},

@@ -10,7 +10,7 @@ repos:
       - id: fix-byte-order-marker
       - id: mixed-line-ending
       - id: name-tests-test
-        args: [--pytest]
+        args: [--pytest-test-first]
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.6.4
     hooks:
