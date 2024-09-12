@@ -24,7 +24,9 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = []
+dependencies = [
+  "click",
+]
 
 [project.optional-dependencies]
 test = [
@@ -42,6 +44,9 @@ dev = [
 Documentation = "https://github.com/Aleksandr Kadykov/mdminify#readme"
 Issues = "https://github.com/Aleksandr Kadykov/mdminify/issues"
 Source = "https://github.com/Aleksandr Kadykov/mdminify"
+
+[project.scripts]
+mdminify = "mdminify.cli:cli"
 
 [tool.hatch.version]
 source = "vcs"
