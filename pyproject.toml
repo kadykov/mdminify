@@ -29,6 +29,7 @@ dependencies = []
 [project.optional-dependencies]
 test = [
   "pytest",
+  "pytest-cov",
   "tox",
 ]
 dev = [
@@ -84,4 +85,13 @@ python =
     3.12: py312, mypy
 
 [testenv]
+allowlist_externals = pytest
+extras =
+    test
+passenv = *
+setenv =
+    PYTHONPATH = {toxinidir}
+    PYTHONWARNINGS = ignore
+commands =
+    pytest --cov=mdminify --cov-branch --cov-report=xml --cov-report=term-missing tests
 """
