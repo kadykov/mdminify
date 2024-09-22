@@ -1,9 +1,10 @@
 import re
 import json
+from typing import Tuple, Dict
 
 
 # Function to remove hyperlinks from markdown text and store text-to-url mappings
-def remove_links(markdown_text):
+def remove_links(markdown_text: str) -> Tuple[str, Dict[str, str]]:
     """
     Removes markdown links from a string and returns the plain text and a dictionary
     mapping link text to their respective URLs.
@@ -23,10 +24,10 @@ def remove_links(markdown_text):
     # Regex pattern to find [text](url)
     link_pattern = re.compile(r"\[(.*?)\]\((.*?)\)")
     # Dictionary to store text-to-url mappings
-    links = {}
+    links: Dict[str, str] = {}
 
     # Function to replace the links and store the mappings
-    def replace_link(match):
+    def replace_link(match: re.Match) -> str:
         text, url = match.groups()
         links[text] = url  # Store the mapping of text -> url
         return text  # Return just the plain text
@@ -37,7 +38,7 @@ def remove_links(markdown_text):
 
 
 # Function to reinsert hyperlinks into text based on stored links
-def reinsert_links(plain_text, links):
+def reinsert_links(plain_text: str, links: Dict[str, str]) -> str:
     """
     Reinserts markdown links into plain text using a dictionary that maps the link text to URLs.
 
@@ -59,7 +60,9 @@ def reinsert_links(plain_text, links):
 
 
 # Function to read markdown from file, remove links, and save plain text and links
-def process_markdown_file(input_md_file, output_md_file, output_json_file):
+def process_markdown_file(
+    input_md_file: str, output_md_file: str, output_json_file: str
+) -> None:
     """
     Reads a markdown file, removes links, saves the plain text to another file,
     and stores the links in a JSON file.
@@ -90,7 +93,9 @@ def process_markdown_file(input_md_file, output_md_file, output_json_file):
 
 
 # Function to restore links from JSON and plain markdown file, then save the restored markdown
-def restore_links_from_json(plain_md_file, json_file, output_md_file):
+def restore_links_from_json(
+    plain_md_file: str, json_file: str, output_md_file: str
+) -> None:
     """
     Reads a plain markdown file and a JSON file containing links, then restores the links
     in the markdown file and saves the result.
@@ -110,7 +115,7 @@ def restore_links_from_json(plain_md_file, json_file, output_md_file):
 
     # Load links from JSON file
     with open(json_file) as file:
-        links = json.load(file)
+        links: Dict[str, str] = json.load(file)
 
     # Reinsert the links into the plain text
     restored_text = reinsert_links(plain_text, links)
