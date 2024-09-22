@@ -34,10 +34,15 @@ test = [
   "pytest-cov",
   "tox",
 ]
+docs = [
+  "mkdocs",
+  "mkdocs-material",
+  "mkdocstrings-python",
+]
 dev = [
   "ipykernel",
-  "mdminify[test]",
   "pre-commit",
+  "mdminify[test,docs]",
 ]
 
 [project.urls]
