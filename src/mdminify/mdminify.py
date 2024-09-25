@@ -1,10 +1,11 @@
-import re
+from __future__ import annotations
+
 import json
-from typing import Tuple, Dict
+import re
 
 
 # Function to remove hyperlinks from markdown text and store text-to-url mappings
-def remove_links(markdown_text: str) -> Tuple[str, Dict[str, str]]:
+def remove_links(markdown_text: str) -> tuple[str, dict[str, str]]:
     """
     Removes markdown links from a string and returns the plain text and a dictionary
     mapping link text to their respective URLs.
@@ -24,7 +25,7 @@ def remove_links(markdown_text: str) -> Tuple[str, Dict[str, str]]:
     # Regex pattern to find [text](url)
     link_pattern = re.compile(r"\[(.*?)\]\((.*?)\)")
     # Dictionary to store text-to-url mappings
-    links: Dict[str, str] = {}
+    links: dict[str, str] = {}
 
     # Function to replace the links and store the mappings
     def replace_link(match: re.Match) -> str:
@@ -38,7 +39,7 @@ def remove_links(markdown_text: str) -> Tuple[str, Dict[str, str]]:
 
 
 # Function to reinsert hyperlinks into text based on stored links
-def reinsert_links(plain_text: str, links: Dict[str, str]) -> str:
+def reinsert_links(plain_text: str, links: dict[str, str]) -> str:
     """
     Reinserts markdown links into plain text using a dictionary that maps the link text to URLs.
 
@@ -50,7 +51,9 @@ def reinsert_links(plain_text: str, links: Dict[str, str]) -> str:
         str: The text with links reinserted in markdown format.
 
     Example:
-        >>> reinsert_links("I am proficient in Python.", {"Python": "https://www.python.org/"})
+        >>> reinsert_links(
+        ...     "I am proficient in Python.", {"Python": "https://www.python.org/"}
+        ... )
         "I am proficient in [Python](https://www.python.org/)."
     """
     for text, url in links.items():
@@ -60,9 +63,7 @@ def reinsert_links(plain_text: str, links: Dict[str, str]) -> str:
 
 
 # Function to read markdown from file, remove links, and save plain text and links
-def process_markdown_file(
-    input_md_file: str, output_md_file: str, output_json_file: str
-) -> None:
+def process_markdown_file(input_md_file: str, output_md_file: str, output_json_file: str) -> None:
     """
     Reads a markdown file, removes links, saves the plain text to another file,
     and stores the links in a JSON file.
@@ -93,9 +94,7 @@ def process_markdown_file(
 
 
 # Function to restore links from JSON and plain markdown file, then save the restored markdown
-def restore_links_from_json(
-    plain_md_file: str, json_file: str, output_md_file: str
-) -> None:
+def restore_links_from_json(plain_md_file: str, json_file: str, output_md_file: str) -> None:
     """
     Reads a plain markdown file and a JSON file containing links, then restores the links
     in the markdown file and saves the result.
@@ -115,7 +114,7 @@ def restore_links_from_json(
 
     # Load links from JSON file
     with open(json_file) as file:
-        links: Dict[str, str] = json.load(file)
+        links: dict[str, str] = json.load(file)
 
     # Reinsert the links into the plain text
     restored_text = reinsert_links(plain_text, links)

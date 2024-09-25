@@ -11,12 +11,6 @@ repos:
       - id: mixed-line-ending
       - id: name-tests-test
         args: [--pytest-test-first]
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.6.7
-    hooks:
-      - id: ruff
-        args: [--fix]
-      - id: ruff-format
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.17.0
     hooks:
@@ -33,3 +27,12 @@ repos:
     rev: v0.13.0
     hooks:
       - id: yamlfmt
+  # From https://github.com/pypa/hatch/issues/1559#issuecomment-2222983504
+  - repo: local
+    hooks:
+      - id: lint-fmt
+        name: Lint (Ruff)
+        entry: hatch fmt
+        language: python
+        pass_filenames: false
+        require_serial: true

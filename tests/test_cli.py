@@ -1,5 +1,7 @@
 import json
+
 from click.testing import CliRunner
+
 from mdminify.cli import cli
 
 
@@ -16,9 +18,7 @@ def test_remove_links_cli(tmp_path):
     output_json = tmp_path / "links.json"
 
     # Run the remove command
-    result = runner.invoke(
-        cli, ["remove", str(input_md), str(output_md), str(output_json)]
-    )
+    result = runner.invoke(cli, ["remove", str(input_md), str(output_md), str(output_json)])
 
     assert result.exit_code == 0
     assert output_md.read_text() == "I am proficient in Python and JavaScript."
@@ -49,9 +49,7 @@ def test_restore_links_cli(tmp_path):
     output_md = tmp_path / "restored.md"
 
     # Run the restore command
-    result = runner.invoke(
-        cli, ["restore", str(plain_md), str(links_json), str(output_md)]
-    )
+    result = runner.invoke(cli, ["restore", str(plain_md), str(links_json), str(output_md)])
 
     assert result.exit_code == 0
     assert (

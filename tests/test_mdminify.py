@@ -1,5 +1,6 @@
-from mdminify import mdminify
 import json
+
+from mdminify import mdminify
 
 
 # Test removing a single markdown link
@@ -16,7 +17,9 @@ def test_remove_single_link():
 
 # Test removing multiple markdown links
 def test_remove_multiple_links():
-    markdown_text = "I am proficient in [Python](https://www.python.org/) and [JavaScript](https://www.javascript.com/)."
+    markdown_text = (
+        "I am proficient in [Python](https://www.python.org/) and [JavaScript](https://www.javascript.com/)."
+    )
     expected_plain_text = "I am proficient in Python and JavaScript."
     expected_links = {
         "Python": "https://www.python.org/",
@@ -25,12 +28,8 @@ def test_remove_multiple_links():
 
     plain_text, links = mdminify.remove_links(markdown_text)
 
-    assert (
-        plain_text == expected_plain_text
-    ), "Plain text did not match expected output for multiple links"
-    assert (
-        links == expected_links
-    ), "Links dictionary did not match expected output for multiple links"
+    assert plain_text == expected_plain_text, "Plain text did not match expected output for multiple links"
+    assert links == expected_links, "Links dictionary did not match expected output for multiple links"
 
 
 # Test reinserting a single markdown link
@@ -41,9 +40,7 @@ def test_reinsert_single_link():
 
     restored_text = mdminify.reinsert_links(plain_text, links)
 
-    assert (
-        restored_text == expected_restored_text
-    ), "Restored text did not match expected output for single link"
+    assert restored_text == expected_restored_text, "Restored text did not match expected output for single link"
 
 
 # Test reinserting multiple markdown links
@@ -53,13 +50,13 @@ def test_reinsert_multiple_links():
         "Python": "https://www.python.org/",
         "JavaScript": "https://www.javascript.com/",
     }
-    expected_restored_text = "I am proficient in [Python](https://www.python.org/) and [JavaScript](https://www.javascript.com/)."
+    expected_restored_text = (
+        "I am proficient in [Python](https://www.python.org/) and [JavaScript](https://www.javascript.com/)."
+    )
 
     restored_text = mdminify.reinsert_links(plain_text, links)
 
-    assert (
-        restored_text == expected_restored_text
-    ), "Restored text did not match expected output for multiple links"
+    assert restored_text == expected_restored_text, "Restored text did not match expected output for multiple links"
 
 
 # Test plain text with no markdown links
@@ -70,15 +67,15 @@ def test_no_links():
 
     restored_text = mdminify.reinsert_links(plain_text, links)
 
-    assert (
-        restored_text == expected_restored_text
-    ), "Text with no links should remain unchanged"
+    assert restored_text == expected_restored_text, "Text with no links should remain unchanged"
 
 
 # Test process_markdown_file
 def test_process_markdown_file(tmp_path):
     # Input markdown text with links
-    markdown_content = "I am proficient in [Python](https://www.python.org/) and [JavaScript](https://www.javascript.com/)."
+    markdown_content = (
+        "I am proficient in [Python](https://www.python.org/) and [JavaScript](https://www.javascript.com/)."
+    )
 
     # Paths for input, output markdown, and output JSON
     input_md = tmp_path / "input.md"
@@ -93,9 +90,7 @@ def test_process_markdown_file(tmp_path):
 
     # Verify that the plain markdown (without links) is written correctly
     expected_plain_text = "I am proficient in Python and JavaScript."
-    assert (
-        output_md.read_text() == expected_plain_text
-    ), "Plain markdown output is incorrect"
+    assert output_md.read_text() == expected_plain_text, "Plain markdown output is incorrect"
 
     # Verify that the links are saved correctly in the JSON file
     expected_links = {
@@ -132,7 +127,7 @@ def test_restore_links_from_json(tmp_path):
     mdminify.restore_links_from_json(plain_md, links_json, restored_md)
 
     # Verify that the restored markdown is correct
-    expected_restored_text = "I am proficient in [Python](https://www.python.org/) and [JavaScript](https://www.javascript.com/)."
-    assert (
-        restored_md.read_text() == expected_restored_text
-    ), "Restored markdown output is incorrect"
+    expected_restored_text = (
+        "I am proficient in [Python](https://www.python.org/) and [JavaScript](https://www.javascript.com/)."
+    )
+    assert restored_md.read_text() == expected_restored_text, "Restored markdown output is incorrect"

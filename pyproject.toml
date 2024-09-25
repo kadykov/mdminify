@@ -43,12 +43,13 @@ dev = [
   "ipykernel",
   "pre-commit",
   "mdminify[test,docs]",
+  "hatch",
 ]
 
 [project.urls]
-Documentation = "https://github.com/Aleksandr Kadykov/mdminify#readme"
-Issues = "https://github.com/Aleksandr Kadykov/mdminify/issues"
-Source = "https://github.com/Aleksandr Kadykov/mdminify"
+Documentation = "https://kadykov.github.io/mdminify"
+Issues = "https://github.com/kadykov/mdminify/issues"
+Source = "https://github.com/kadykov/mdminify"
 
 [project.scripts]
 mdminify = "mdminify.cli:cli"
@@ -60,8 +61,15 @@ source = "vcs"
 extra-dependencies = [
   "mypy>=1.0.0",
 ]
+
 [tool.hatch.envs.types.scripts]
 check = "mypy --install-types --non-interactive {args:src/mdminify tests}"
+
+[tool.hatch.envs.hatch-static-analysis]
+config-path = "ruff_defaults.toml"
+
+[tool.ruff]
+extend = "ruff_defaults.toml"
 
 [tool.coverage.run]
 source_pkgs = ["mdminify", "tests"]

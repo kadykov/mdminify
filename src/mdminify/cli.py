@@ -1,11 +1,11 @@
 import click
-from .mdminify import process_markdown_file, restore_links_from_json
+
+from mdminify.mdminify import process_markdown_file, restore_links_from_json
 
 
 @click.group()
 def cli():
     """CLI tool to remove and restore markdown links."""
-    pass
 
 
 @click.command()
@@ -33,9 +33,7 @@ def remove(input_md_file, output_md_file, output_json_file):
     and store the extracted links in `links.json`.
     """
     process_markdown_file(input_md_file, output_md_file, output_json_file)
-    click.echo(
-        f"Processed markdown saved to {output_md_file}, links saved to {output_json_file}"
-    )
+    click.echo(f"Processed markdown saved to {output_md_file}, links saved to {output_json_file}")
 
 
 @click.command()
