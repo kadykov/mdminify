@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.36">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.37">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.06209087.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.8c3ca2c6.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
@@ -803,10 +803,7 @@ and stores the links in a JSON file.</p>
 </details>
             <details class="quote">
               <summary>Source code in <code>mdminify/mdminify.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">66</span>
 <span class="normal">67</span>
 <span class="normal">68</span>
 <span class="normal">69</span>
@@ -832,9 +829,8 @@ and stores the links in a JSON file.</p>
 <span class="normal">89</span>
 <span class="normal">90</span>
 <span class="normal">91</span>
-<span class="normal">92</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">process_markdown_file</span><span class="p">(</span>
-    <span class="n">input_md_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_md_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_json_file</span><span class="p">:</span> <span class="nb">str</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">92</span>
+<span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">process_markdown_file</span><span class="p">(</span><span class="n">input_md_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_md_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_json_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Reads a markdown file, removes links, saves the plain text to another file,</span>
 <span class="sd">    and stores the links in a JSON file.</span>
@@ -953,7 +949,9 @@ and stores the links in a JSON file.</p>
   <blockquote>
 <blockquote>
 <blockquote>
-<p>reinsert_links("I am proficient in Python.", {"Python": "https://www.python.org/"})
+<p>reinsert_links(
+...     "I am proficient in Python.", {"Python": "https://www.python.org/"}
+... )
 "I am proficient in <a href="https://www.python.org/">Python</a>."</p>
 </blockquote>
 </blockquote>
@@ -961,8 +959,7 @@ and stores the links in a JSON file.</p>
 </details>
             <details class="quote">
               <summary>Source code in <code>mdminify/mdminify.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">41</span>
-<span class="normal">42</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">42</span>
 <span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span>
@@ -979,7 +976,10 @@ and stores the links in a JSON file.</p>
 <span class="normal">56</span>
 <span class="normal">57</span>
 <span class="normal">58</span>
-<span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">reinsert_links</span><span class="p">(</span><span class="n">plain_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">links</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">reinsert_links</span><span class="p">(</span><span class="n">plain_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">links</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Reinserts markdown links into plain text using a dictionary that maps the link text to URLs.</span>
 
@@ -991,7 +991,9 @@ and stores the links in a JSON file.</p>
 <span class="sd">        str: The text with links reinserted in markdown format.</span>
 
 <span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; reinsert_links(&quot;I am proficient in Python.&quot;, {&quot;Python&quot;: &quot;https://www.python.org/&quot;})</span>
+<span class="sd">        &gt;&gt;&gt; reinsert_links(</span>
+<span class="sd">        ...     &quot;I am proficient in Python.&quot;, {&quot;Python&quot;: &quot;https://www.python.org/&quot;}</span>
+<span class="sd">        ... )</span>
 <span class="sd">        &quot;I am proficient in [Python](https://www.python.org/).&quot;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">text</span><span class="p">,</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">links</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -1059,7 +1061,7 @@ mapping link text to their respective URLs.</p>
       <tbody>
           <tr class="doc-section-item">
 <td><code>tuple</code></td>            <td>
-                  <code><span title="typing.Tuple">Tuple</span>[str, <span title="typing.Dict">Dict</span>[str, str]]</code>
+                  <code>tuple[str, dict[str, str]]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1086,8 +1088,7 @@ mapping link text to their respective URLs.</p>
 </details>
             <details class="quote">
               <summary>Source code in <code>mdminify/mdminify.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 7</span>
-<span class="normal"> 8</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
@@ -1116,7 +1117,8 @@ mapping link text to their respective URLs.</p>
 <span class="normal">34</span>
 <span class="normal">35</span>
 <span class="normal">36</span>
-<span class="normal">37</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">remove_links</span><span class="p">(</span><span class="n">markdown_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+<span class="normal">37</span>
+<span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">remove_links</span><span class="p">(</span><span class="n">markdown_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Removes markdown links from a string and returns the plain text and a dictionary</span>
 <span class="sd">    mapping link text to their respective URLs.</span>
@@ -1136,7 +1138,7 @@ mapping link text to their respective URLs.</p>
     <span class="c1"># Regex pattern to find [text](url)</span>
     <span class="n">link_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\[(.*?)\]\((.*?)\)&quot;</span><span class="p">)</span>
     <span class="c1"># Dictionary to store text-to-url mappings</span>
-    <span class="n">links</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">links</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="c1"># Function to replace the links and store the mappings</span>
     <span class="k">def</span> <span class="nf">replace_link</span><span class="p">(</span><span class="n">match</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">Match</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -1238,8 +1240,7 @@ in the markdown file and saves the result.</p>
 </details>
             <details class="quote">
               <summary>Source code in <code>mdminify/mdminify.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 96</span>
-<span class="normal"> 97</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 97</span>
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
 <span class="normal">100</span>
@@ -1266,10 +1267,7 @@ in the markdown file and saves the result.</p>
 <span class="normal">121</span>
 <span class="normal">122</span>
 <span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">restore_links_from_json</span><span class="p">(</span>
-    <span class="n">plain_md_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">json_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_md_file</span><span class="p">:</span> <span class="nb">str</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">124</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">restore_links_from_json</span><span class="p">(</span><span class="n">plain_md_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">json_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_md_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Reads a plain markdown file and a JSON file containing links, then restores the links</span>
 <span class="sd">    in the markdown file and saves the result.</span>
@@ -1289,7 +1287,7 @@ in the markdown file and saves the result.</p>
 
     <span class="c1"># Load links from JSON file</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-        <span class="n">links</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="n">links</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
 
     <span class="c1"># Reinsert the links into the plain text</span>
     <span class="n">restored_text</span> <span class="o">=</span> <span class="n">reinsert_links</span><span class="p">(</span><span class="n">plain_text</span><span class="p">,</span> <span class="n">links</span><span class="p">)</span>
@@ -1367,7 +1365,7 @@ in the markdown file and saves the result.</p>
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.path", "navigation.prune", "navigation.top", "search.suggest", "search.highlight", "header.autohide", "content.action.edit"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.56dfad97.min.js"></script>
+      <script src="../assets/javascripts/bundle.d6f25eb3.min.js"></script>
       
     
   </body>
