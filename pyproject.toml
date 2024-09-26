@@ -32,7 +32,6 @@ dependencies = [
 tests = [
   "pytest",
   "pytest-cov",
-  "tox",
 ]
 docs = [
   "mkdocs",
@@ -42,8 +41,8 @@ docs = [
 dev = [
   "ipykernel",
   "pre-commit",
-  "mdminify[tests, docs]",
   "hatch",
+  "mdminify[tests, docs]",
 ]
 
 [project.urls]
