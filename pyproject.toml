@@ -29,7 +29,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-test = [
+tests = [
   "pytest",
   "pytest-cov",
   "tox",
@@ -42,7 +42,7 @@ docs = [
 dev = [
   "ipykernel",
   "pre-commit",
-  "mdminify[test]",
+  "mdminify[tests, docs]",
   "hatch",
 ]
 
