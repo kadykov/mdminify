@@ -21,12 +21,15 @@ jobs:
     name: Testing with pytest
     needs: pre_commit
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
     steps:
       - uses: actions/checkout@v4
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: ${{ matrix.python-version }}
       - name: Upgrade pip
         run: python3 -m pip install --upgrade pip
       - name: Get pip cache dir
@@ -38,12 +41,10 @@ jobs:
           path: ${{ steps.pip-cache.outputs.dir }}
           key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
           restore-keys: ${{ runner.os }}-pip-
-      - name: Install hatch
-        run: pip install hatch
-      - name: Testing with hatch
-        run: hatch test --all --cover
-      # - name: Check tests coverage
-      #   run: hatch run coverage xml
+      - name: Install test dependencies
+        run: pip install .[test]
+      - name: Testing with pytest
+        run: pytest --cov=mdminify --cov-branch --cov-report=xml --cov-report=term-missing tests
       - name: Upload results to Codecov
         uses: codecov/codecov-action@v4
         with:
@@ -73,10 +74,10 @@ jobs:
           path: ${{ steps.pip-cache.outputs.dir }}
           key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
           restore-keys: ${{ runner.os }}-pip-
-      - name: Install hatch
-        run: pip install hatch
+      - name: Install documentation dependencies
+        run: pip install .[docs]
       - name: Build documentation
-        run: hatch run docs:build
+        run: mkdocs build --strict
       - name: Deploy documentation to GitHub pages
         uses: peaceiris/actions-gh-pages@v4
         if: github.ref == 'refs/heads/main'
