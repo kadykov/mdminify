@@ -37,14 +37,19 @@ jobs:
         with:
           path: ${{ steps.pip-cache.outputs.dir }}
           key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+          restore-keys: ${{ runner.os }}-pip-
       - name: Install hatch
         run: pip install hatch
       - name: Testing with hatch
-        run: hatch test --all
+        run: hatch test --all --cover
+      - name: Check tests coverage
+        run: hatch run coverage xml
+      - name: Upload results to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
   docs:
-    name: Build and publish documentation with mkdocs
+    name: Build and publish documentation
     needs: tests
     runs-on: ubuntu-latest
     permissions:
@@ -67,13 +72,12 @@ jobs:
         with:
           path: ${{ steps.pip-cache.outputs.dir }}
           key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+          restore-keys: ${{ runner.os }}-pip-
       - name: Install hatch
         run: pip install hatch
-      - name: Build documentation with mkdocs
+      - name: Build documentation
         run: hatch run docs:build
-      - name: Deploy
+      - name: Deploy documentation to GitHub pages
         uses: peaceiris/actions-gh-pages@v4
         if: github.ref == 'refs/heads/main'
         with:

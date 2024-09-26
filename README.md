@@ -2,7 +2,7 @@
 
 [![PyPI - Version](https://img.shields.io/pypi/v/mdminify.svg)](https://pypi.org/project/mdminify)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/mdminify.svg)](https://pypi.org/project/mdminify)
-[![Build Status](https://github.com/kadykov/mdminify/actions/workflows/tests.yaml/badge.svg)](https://github.com/kadykov/mdminify/actions/workflows/tests.yaml)
+[![Build Status](https://github.com/kadykov/mdminify/actions/workflows/ci.yml/badge.svg)](https://github.com/kadykov/mdminify/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/kadykov/mdminify/branch/main/graphs/badge.svg)](https://codecov.io/github/kadykov/mdminify)
 -----
 
