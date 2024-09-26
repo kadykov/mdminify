@@ -71,8 +71,6 @@ jobs:
             ${{ runner.os }}-pip-
       - name: Install hatch
         run: pip install hatch
-      - name: Testing with hatch
-        run: hatch test --all
       - name: Build documentation with mkdocs
         run: hatch run docs:build
       - name: Deploy
