@@ -42,8 +42,8 @@ jobs:
         run: pip install hatch
       - name: Testing with hatch
         run: hatch test --all --cover
-      - name: Check tests coverage
-        run: hatch run coverage xml
+      # - name: Check tests coverage
+      #   run: hatch run coverage xml
       - name: Upload results to Codecov
         uses: codecov/codecov-action@v4
         with:
