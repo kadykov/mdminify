@@ -34,15 +34,10 @@ test = [
   "pytest-cov",
   "tox",
 ]
-docs = [
-  "mkdocs",
-  "mkdocs-material",
-  "mkdocstrings-python",
-]
 dev = [
   "ipykernel",
   "pre-commit",
-  "mdminify[test,docs]",
+  "mdminify[test]",
   "hatch",
 ]
 
@@ -71,6 +66,16 @@ config-path = "ruff_defaults.toml"
 [tool.ruff]
 extend = "ruff_defaults.toml"
 
+[tool.hatch.envs.docs]
+dependencies = [
+  "mkdocs",
+  "mkdocs-material",
+  "mkdocstrings-python",
+]
+
+[tool.hatch.envs.docs.scripts]
+build = "mkdocs build --strict"
+
 [tool.coverage.run]
 source_pkgs = ["mdminify", "tests"]
 branch = true
@@ -89,3 +94,4 @@ exclude_lines = [
   "if __name__ == .__main__.:",
   "if TYPE_CHECKING:",
 ]
+show_missing = true

@@ -3,43 +3,46 @@ on:
   pull_request:
   push:
     branches: [main]
-    tags: ['v*']
+    tags: ['v*.*.*']
   workflow_dispatch:
 jobs:
   pre_commit:
     name: pre-commit checks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: "3.x"
+          python-version: "3.12"
       - uses: pre-commit/action@v3.0.1
       - uses: pre-commit-ci/lite-action@v1.0.3
         if: always()
   tests:
-    name: Testing with tox
-    runs-on: ubuntu-latest
+    name: Testing with pytest
     needs: pre_commit
-    strategy:
-      matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install tox tox-gh-actions
-      - name: Test with tox
-        run: tox
-      - name: Upload results to Codecov
-        uses: codecov/codecov-action@v4
+          python-version: "3.12"
+      - name: Upgrade pip
+        run: python3 -m pip install --upgrade pip
+      - name: Get pip cache dir
+        id: pip-cache
+        run: echo "dir=$(pip cache dir)" >> "$GITHUB_OUTPUT"
+      - name: Cache dependencies
+        uses: actions/cache@v4
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          path: ${{ steps.pip-cache.outputs.dir }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Install hatch
+        run: pip install hatch
+      - name: Testing with hatch
+        run: hatch test --all
   docs:
     name: Build and publish documentation with mkdocs
     needs: tests
@@ -49,26 +52,29 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.x"
+          python-version: "3.12"
       - name: Upgrade pip
         run: python3 -m pip install --upgrade pip
       - name: Get pip cache dir
         id: pip-cache
         run: echo "dir=$(pip cache dir)" >> "$GITHUB_OUTPUT"
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.pip-cache.outputs.dir }}
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/pyproject.toml') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
           restore-keys: |
             ${{ runner.os }}-pip-
-      - name: Install dependencies
-        run: pip install .[docs]
-      - run: mkdocs build --strict
+      - name: Install hatch
+        run: pip install hatch
+      - name: Testing with hatch
+        run: hatch test --all
+      - name: Build documentation with mkdocs
+        run: hatch run docs:build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         if: github.ref == 'refs/heads/main'
