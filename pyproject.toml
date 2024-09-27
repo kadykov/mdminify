@@ -46,7 +46,7 @@ dev = [
 ]
 
 [project.urls]
-Documentation = "https://kadykov.github.io/mdminify"
+Documentation = "https://github.kadykov.com/mdminify"
 Issues = "https://github.com/kadykov/mdminify/issues"
 Source = "https://github.com/kadykov/mdminify"
 
