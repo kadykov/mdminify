@@ -4,6 +4,7 @@ from mdminify.mdminify import process_markdown_file, restore_links_from_json
 
 
 @click.group()
+@click.version_option()
 def cli():
     """CLI tool to remove and restore markdown links."""
 
