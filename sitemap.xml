@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://kadykov.github.io/mdminify/</loc>
-         <lastmod>2024-09-26</lastmod>
+         <loc>https://github.kadykov.com/mdminify/</loc>
+         <lastmod>2024-09-27</lastmod>
     </url>
     <url>
-         <loc>https://kadykov.github.io/mdminify/changelog/</loc>
-         <lastmod>2024-09-26</lastmod>
+         <loc>https://github.kadykov.com/mdminify/changelog/</loc>
+         <lastmod>2024-09-27</lastmod>
     </url>
     <url>
-         <loc>https://kadykov.github.io/mdminify/cli/</loc>
-         <lastmod>2024-09-26</lastmod>
+         <loc>https://github.kadykov.com/mdminify/cli/</loc>
+         <lastmod>2024-09-27</lastmod>
     </url>
     <url>
-         <loc>https://kadykov.github.io/mdminify/mdminify/</loc>
-         <lastmod>2024-09-26</lastmod>
+         <loc>https://github.kadykov.com/mdminify/mdminify/</loc>
+         <lastmod>2024-09-27</lastmod>
     </url>
 </urlset>
