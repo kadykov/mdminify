@@ -1,7 +1,10 @@
+---
 name: Build packages, create a release, publish on PyPI
+
 on:
   push:
     tags: ['v*.*.*']
+
 jobs:
   build:
     name: Build a package
@@ -22,6 +25,7 @@ jobs:
             dist/mdminify-*.tar.gz
             dist/mdminify-*.whl
           if-no-files-found: error
+
   release:
     name: Create Release
     runs-on: ubuntu-latest
@@ -58,6 +62,7 @@ jobs:
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: dist/
+
   publish:
     name: Upload packages to PyPI
     runs-on: ubuntu-latest

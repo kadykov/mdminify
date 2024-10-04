@@ -1,10 +1,13 @@
+---
 name: CI pipeline
+
 on:
   pull_request:
   push:
     branches: [main]
     tags: ['v*.*.*']
   workflow_dispatch:
+
 jobs:
   pre_commit:
     name: pre-commit checks
@@ -17,6 +20,7 @@ jobs:
       - uses: pre-commit/action@v3.0.1
       - uses: pre-commit-ci/lite-action@v1.0.3
         if: always()
+
   tests:
     name: Testing with pytest
     needs: pre_commit
@@ -39,12 +43,17 @@ jobs:
         run: uv sync --extra tests
       - name: Testing with pytest
         run: >
-          uv run pytest --cov=mdminify --cov-branch --cov-report=xml --cov-report=term-missing tests
-
+          uv run pytest
+          --cov=mdminify
+          --cov-branch
+          --cov-report=xml
+          --cov-report=term-missing
+          tests
       - name: Upload results to Codecov
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
   docs:
     name: Build and publish documentation
     needs: tests

@@ -1,3 +1,4 @@
+---
 site_name: MDminify
 site_url: https://github.kadykov.com/mdminify
 repo_url: https://github.com/kadykov/mdminify
@@ -11,6 +12,7 @@ nav:
       - cli.md
   - changelog.md
   # - Contributing: contributing.md
+
 theme:
   name: material
   palette:
@@ -47,9 +49,11 @@ theme:
     repo: fontawesome/brands/github
     edit: material/pencil
     view: material/eye
+
 plugins:
   - search
   - mkdocstrings
   # - social
+
 markdown_extensions:
   - pymdownx.snippets:
